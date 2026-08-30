@@ -1,0 +1,45 @@
+name: attest-vae-work-unit-bindings
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'bindings/*.public.json'
+permissions: {}
+jobs:
+  attest:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+      attestations: write
+    steps:
+      - name: Checkout exact commit
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Select binding files changed in this push
+        id: changed
+        shell: bash
+        env:
+          BEFORE: ${{ github.event.before }}
+          AFTER: ${{ github.sha }}
+        run: |
+          set -euo pipefail
+          if [[ "$BEFORE" =~ ^0+$ ]]; then
+            mapfile -t files < <(git ls-tree -r --name-only "$AFTER" -- bindings | grep -E '^bindings/[A-Za-z0-9._-]+\.public\.json$' || true)
+          else
+            mapfile -t files < <(git diff --name-only --diff-filter=AM "$BEFORE" "$AFTER" -- bindings | grep -E '^bindings/[A-Za-z0-9._-]+\.public\.json$' || true)
+          fi
+          if (( ${#files[@]} == 0 )); then
+            echo 'No valid changed public binding files' >&2
+            exit 1
+          fi
+          printf 'paths<<EOF\n' >> "$GITHUB_OUTPUT"
+          printf '%s\n' "${files[@]}" >> "$GITHUB_OUTPUT"
+          printf 'EOF\n' >> "$GITHUB_OUTPUT"
+      - name: Attest exact changed public commitments
+        uses: actions/attest@508db95dd578ae2727ebd6217d5ba78e4fbda05d
+        with:
+          subject-path: ${{ steps.changed.outputs.paths }}

@@ -1,0 +1,7 @@
+*.reveal.json
+*.private.json
+.local/
+private/
+secrets/
+.env
+.env.*
