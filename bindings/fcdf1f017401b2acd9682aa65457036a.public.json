@@ -1,0 +1,22 @@
+{
+  "attempt_inventory_complete": true,
+  "attest_by": "2026-08-30T03:29:30.962193Z",
+  "binding_id": "fcdf1f017401b2acd9682aa65457036a",
+  "binding_payload_sha256": "d4e2f0c8df4073fd5975e7f541076486e3e54e4912a8293987529bb58dc581b1",
+  "closed_at": "2026-08-30T03:13:14.808301Z",
+  "expected_request_count": 1,
+  "issued_at": "2026-08-30T03:14:30.962193Z",
+  "mappings": [
+    {
+      "correlation_basis": "GENERATION_ID",
+      "correlation_commitment_sha256": "eca13dbe6f5e7c75b44a42d10d48d3798142ae21e84890fb113e161988808428",
+      "ordinal": 1
+    }
+  ],
+  "opened_at": "2026-08-30T03:13:13.592122Z",
+  "privacy_mode": "PUBLIC_COMMITMENTS_ONLY",
+  "provider": "openrouter",
+  "purpose": "work_unit_binding",
+  "schema": "verified-agent-economics-keyless-work-unit-binding-public/v1",
+  "work_unit_commitment_sha256": "8dc2fb239ea95fe03b16ab836029545f1f8324f9895ddbc991e226a3153da734"
+}
