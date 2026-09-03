@@ -12,7 +12,7 @@ The GitHub Actions attestation workflow processes only binding files added or mo
 ## What is publicly verifiable
 
 - public binding files contain salted SHA-256 commitments rather than raw private identifiers;
-- the privacy gate checks the repository's public-data boundary;
+- the privacy gate runs on branch pushes and pull requests targeting `main`, checking the repository's public-data boundary;
 - the attestation workflow is scoped to changed `bindings/*.public.json` files;
 - GitHub artifact attestations bind the selected public files to the workflow execution.
 
