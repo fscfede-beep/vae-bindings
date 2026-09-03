@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Security vulnerability
+    url: https://github.com/fscfede-beep/vae-bindings/security/advisories/new
+    about: Report undisclosed security or privacy issues privately.
